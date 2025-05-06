@@ -9,6 +9,7 @@ A simple React + Tailwind app to book one-way or round-trip tickets.
 - Query parameter support (?departure=yyyy-mm-dd)
 - Form error highlighting and structured result display
 - Fully responsive and styled with TailwindCSS
+- Users can only select a departure or return date within 1 year from today's date to ensure realistic booking windows.
 
 ## Setup Instructions
 

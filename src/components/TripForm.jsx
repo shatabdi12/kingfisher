@@ -5,6 +5,9 @@ import { useSearchParams } from 'react-router-dom';
 function TripForm() {
   const [searchParams] = useSearchParams();
   const today = formatDate(new Date(), 'yyyy-MM-dd');
+  const maxBookingDate = new Date();
+  maxBookingDate.setFullYear(maxBookingDate.getFullYear() + 1);
+  const maxDate = maxBookingDate.toISOString().split('T')[0];
 
   const [tripType, setTripType] = useState('one-way');
   const [departure, setDeparture] = useState('');
@@ -85,6 +88,7 @@ function TripForm() {
             setSubmitted(false);
           }}
           min={today}
+          max={maxDate}
         />
         {errors.departure && (
           <p className="text-red-500 text-sm mt-1">{errors.departure}</p>
@@ -105,6 +109,7 @@ function TripForm() {
             setSubmitted(false);
           }}
           min={departure || today}
+          max={maxDate}
           disabled={tripType === 'one-way'}
         />
         {errors.returnDate && (
