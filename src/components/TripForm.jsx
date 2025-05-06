@@ -1,7 +1,9 @@
 import { formatDate, isBefore } from 'date-fns';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 function TripForm() {
+    const [searchParams] = useSearchParams();
     const today = formatDate(new Date(), "yyyy-MM-dd");
 
     const [tripType, setTripType] = useState("one-way");
@@ -9,6 +11,13 @@ function TripForm() {
     const [returnDate, setReturnDate] = useState("");
     const [submitted, setSubmitted] = useState(false);
     const [errors, setErrors] = useState({});
+
+    useEffect (() => {
+        const paramDeparture = searchParams.get("departure");
+        if (paramDeparture && !isBefore(new Date(paramDeparture), new Date(today))) {
+            setDeparture(paramDeparture);
+        }
+    }, [searchParams, today]);
 
     const validate = () => {
         const errs = {};
