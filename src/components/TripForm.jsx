@@ -47,6 +47,13 @@ function TripForm() {
         }
     }
 
+    const handleTripTypeChange = (e) => {
+        setTripType(e.target.value); 
+        setDeparture(""); 
+        setReturnDate(""); 
+        setSubmitted(false);
+    }
+
     return (
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <label className="flex flex-col text-sm font-medium text-gray-700">
@@ -54,7 +61,7 @@ function TripForm() {
           <select 
             className="mt-1 p-2 border rounded-lg"
             value={tripType}
-            onChange={(e) => setTripType(e.target.value)}
+            onChange={handleTripTypeChange}
           >
             <option value="one-way">One Way</option>
             <option value="round-trip">Round Trip</option>
@@ -67,8 +74,9 @@ function TripForm() {
             type="date" 
             className= {`mt-1 p-2 border rounded-lg ${errors.departure ? "border-red-500" : "border-gray-300"}`}
             value={departure}
-            onChange={(e) => setDeparture(e.target.value)}
-            min={today} 
+            onChange={(e) => { setDeparture(e.target.value); setSubmitted(false); }}
+            onClick={() => { setSubmitted(false)}}
+            min={today}
           />
             {errors.departure && <p className="text-red-500 text-sm mt-1">{errors.departure}</p>}
         </label>
@@ -79,7 +87,8 @@ function TripForm() {
             type="date" 
             className={`mt-1 p-2 border rounded-lg ${errors.returnDate ? "border-red-500" : "border-gray-300"}`}
             value={returnDate} 
-            onChange={(e) => setReturnDate(e.target.value)}
+            onChange={(e) => { setReturnDate(e.target.value); setSubmitted(false);}}
+            onClick={() => { setSubmitted(false)}}
             min={departure || today}
             disabled={tripType === "one-way"}
           />
@@ -88,7 +97,8 @@ function TripForm() {
   
         <button
           type="submit"
-          className="bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-indigo-700"
+          disabled={submitted}
+          className={`text-white font-semibold py-2 px-4 rounded-lg ${!submitted ? "bg-indigo-600 hover:bg-indigo-700" : "bg-slate-300"}`}
         >
           Book Trip
         </button>
