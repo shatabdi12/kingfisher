@@ -3,13 +3,19 @@ import React, { useState } from 'react';
 
 function TripForm() {
     const today = formatDate(new Date(), "yyyy-MM-dd");
-    
+
     const [tripType, setTripType] = useState("one-way");
     const [departure, setDeparture] = useState("");
     const [returnDate, setReturnDate] = useState("");
+    const [submitted, setSubmitted] = useState(false);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setSubmitted(true);
+    }
 
     return (
-      <form className="flex flex-col space-y-4">
+      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
         <label className="flex flex-col text-sm font-medium text-gray-700">
           Trip Type
           <select 
@@ -50,6 +56,14 @@ function TripForm() {
         >
           Book Trip
         </button>
+
+        {submitted && (
+            <div className="mt-4 bg-green-100 p-3 rounded-log text-green-700">
+                <p><strong>Trip Type:</strong>{tripType}</p>
+                <p><strong>Departure:</strong>{departure}</p>
+               {tripType === "round-trip" && <p><strong>Return:</strong>{returnDate}</p>}
+            </div>
+        )}
       </form>
     );
   }
