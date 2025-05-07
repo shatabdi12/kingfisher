@@ -1,19 +1,20 @@
 import { formatDate, isBefore } from 'date-fns';
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import DateInput from './DateInput';
 
 function TripForm() {
   const [searchParams] = useSearchParams();
-  const today = formatDate(new Date(), 'yyyy-MM-dd');
-  const maxBookingDate = new Date();
-  maxBookingDate.setFullYear(maxBookingDate.getFullYear() + 1);
-  const maxDate = maxBookingDate.toISOString().split('T')[0];
-
   const [tripType, setTripType] = useState('one-way');
   const [departure, setDeparture] = useState('');
   const [returnDate, setReturnDate] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const today = formatDate(new Date(), 'yyyy-MM-dd');
+  const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+    .toISOString()
+    .split('T')[0];
 
   useEffect(() => {
     const paramDeparture = searchParams.get('departure');
@@ -54,10 +55,23 @@ function TripForm() {
   };
 
   const handleTripTypeChange = (e) => {
+    const newTripType = e.target.value;
     setTripType(e.target.value);
     setDeparture('');
     setReturnDate('');
     setSubmitted(false);
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      departure: '',
+      returnDate: newTripType === 'one-way' ? '' : prevErrors.returnDate,
+    }));
+  };
+
+  const handleFieldUpdate = (field) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: '',
+    }));
   };
 
   return (
@@ -74,48 +88,34 @@ function TripForm() {
         </select>
       </label>
 
-      <label className="flex flex-col text-sm font-medium text-gray-700">
-        Departure Date
-        <input
-          type="date"
-          className={`mt-1 p-2 border rounded-lg ${errors.departure ? 'border-red-500' : 'border-gray-300'}`}
-          value={departure}
-          onChange={(e) => {
-            setDeparture(e.target.value);
-            setSubmitted(false);
-          }}
-          onClick={() => {
-            setSubmitted(false);
-          }}
-          min={today}
-          max={maxDate}
-        />
-        {errors.departure && (
-          <p className="text-red-500 text-sm mt-1">{errors.departure}</p>
-        )}
-      </label>
+      <DateInput
+        label="Departure Date"
+        id="departure"
+        value={departure}
+        onChange={(e) => {
+          setDeparture(e.target.value);
+          setSubmitted(false);
+          handleFieldUpdate('departure');
+        }}
+        error={errors.departure}
+        min={today}
+        max={maxDate}
+      />
 
-      <label className="flex flex-col text-sm font-medium text-gray-700">
-        Return Date
-        <input
-          type="date"
-          className={`mt-1 p-2 border rounded-lg ${errors.returnDate ? 'border-red-500' : 'border-gray-300'}`}
-          value={returnDate}
-          onChange={(e) => {
-            setReturnDate(e.target.value);
-            setSubmitted(false);
-          }}
-          onClick={() => {
-            setSubmitted(false);
-          }}
-          min={departure || today}
-          max={maxDate}
-          disabled={tripType === 'one-way'}
-        />
-        {errors.returnDate && (
-          <p className="text-red-500 text-sm mt-1">{errors.returnDate}</p>
-        )}
-      </label>
+      <DateInput
+        label="Return Date"
+        id="returnDate"
+        value={returnDate}
+        onChange={(e) => {
+          setReturnDate(e.target.value);
+          setSubmitted(false);
+          handleFieldUpdate('returnDate');
+        }}
+        error={errors.returnDate}
+        min={departure || today}
+        max={maxDate}
+        disabled={tripType === 'one-way'}
+      />
 
       <button
         type="submit"
