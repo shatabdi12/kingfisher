@@ -2,12 +2,12 @@
 
 A responsive and interactive flight booking interface built with React and TailwindCSS.
 
-# 🚀 Features
+## 🚀 Features
 
 ### Trip Type Selection
   Easily switch between one-way and round-trip travel modes.
   
-## Smart Date Validation
+### Smart Date Validation
   
   Prevents selection of past dates.
   
@@ -15,19 +15,19 @@ A responsive and interactive flight booking interface built with React and Tailw
   
   Only allows selecting dates within 1 year from today.
   
-## Query Parameter Support
+### Query Parameter Support
   Prefill the form using URL params like ?departure=yyyy-mm-dd.
   
-## User-Friendly Form Handling
+### User-Friendly Form Handling
   
   Inline error messages for invalid input.
   
   Clean and structured result display on form submission.
   
-## Responsive Design
+### Responsive Design
   Fully optimized for mobile, tablet, and desktop screens.
 
-# Setup Instructions
+## Setup Instructions
 
 ```bash
 git clone https://github.com/shatabdi12/kingfisher.git
