@@ -1,6 +1,6 @@
-# QbAir Trip Booking App
+# KingFisher
 
-A simple React + Tailwind app to book one-way or round-trip tickets.
+A simple React + Tailwind app to book flight tickets.
 
 ## Features
 
@@ -14,8 +14,8 @@ A simple React + Tailwind app to book one-way or round-trip tickets.
 ## Setup Instructions
 
 ```bash
-git clone https://github.com/shatabdi12/qbair.git
-cd qbair
+git clone https://github.com/shatabdi12/kingfisher.git
+cd kingfisher
 npm install
 npm run dev
 ```
