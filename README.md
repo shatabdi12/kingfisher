@@ -4,7 +4,7 @@ A responsive and interactive flight booking interface built with React and Tailw
 
 # 🚀 Features
 
-## Trip Type Selection
+### Trip Type Selection
   Easily switch between one-way and round-trip travel modes.
   
 ## Smart Date Validation
