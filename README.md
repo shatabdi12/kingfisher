@@ -1,15 +1,31 @@
 # KingFisher
 
-A simple React + Tailwind app to book flight tickets.
+A responsive and interactive flight booking interface built with React and TailwindCSS.
 
-## Features
+## 🚀 Features
 
-- Choose between one-way and round-trip
-- Date validation (no past dates, return after departure)
-- Query parameter support (?departure=yyyy-mm-dd)
-- Form error highlighting and structured result display
-- Fully responsive and styled with TailwindCSS
-- Users can only select a departure or return date within 1 year from today's date to ensure realistic booking windows.
+# Trip Type Selection
+  Easily switch between one-way and round-trip travel modes.
+  
+# Smart Date Validation
+  
+  Prevents selection of past dates.
+  
+  Ensures return date is after departure.
+  
+  Only allows selecting dates within 1 year from today.
+  
+# Query Parameter Support
+  Prefill the form using URL params like ?departure=yyyy-mm-dd.
+  
+# User-Friendly Form Handling
+  
+  Inline error messages for invalid input.
+  
+  Clean and structured result display on form submission.
+  
+# Responsive Design
+  Fully optimized for mobile, tablet, and desktop screens.
 
 ## Setup Instructions
 
